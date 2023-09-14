@@ -33,7 +33,12 @@ const JobDetails = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
-  const onRefresh = () => {};
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetech();
+    setRefreshing(false);
+  }, []);
+
   const displayTabContent = () => {
     switch (activeTab) {
       case "About":
@@ -71,9 +76,9 @@ const JobDetails = () => {
               handlePress={() => router.back()}
             />
           ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
-          ),
+          // headerRight: () => (
+          //   <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
+          // ),
           headerTitle: "",
         }}
       />
