@@ -45,7 +45,7 @@ const useFetch = () => {
             !article.article.startsWith("Special:") &&
             !article.article.startsWith("Wikipedia:")
         )
-        .slice(0, 20)
+        .slice(0, 15)
         .map((article) => {
           const formattedTitle = article.article.replace(/_/g, " ");
           return { ...article, article: formattedTitle };

@@ -12,7 +12,14 @@ import { useRouter } from "expo-router";
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../constants";
 
-const jobTypes = ["Full-time", "Part-time", "Contractor"];
+const jobTypes = [
+  "Top 100",
+  "Sports",
+  "Movies",
+  "Celebrities",
+  "World News",
+  "US News",
+];
 
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
   const router = useRouter();
@@ -22,8 +29,10 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.userName}>Hello User</Text>
-        <Text style={styles.welcomeMessage}>Find your perfect job</Text>
+        <Text style={styles.userName}>Hey there!</Text>
+        <Text style={styles.welcomeMessage}>
+          See what's popular on Wikipedia
+        </Text>
       </View>
 
       <View style={styles.searchContainer}>
@@ -54,6 +63,7 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
                 setActiveJobType(item);
                 router.push(`/search/${item}`);
               }}
+              disabled={true}
             >
               <Text style={styles.tabText(activeJobType, item)}>{item}</Text>
             </TouchableOpacity>
