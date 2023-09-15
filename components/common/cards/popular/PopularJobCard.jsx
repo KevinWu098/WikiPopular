@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./popularjobcard.style";
 
-const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
+const PopularArticleCard = ({ item, selectedJob, handleCardPress }) => {
   return (
     <TouchableOpacity
       style={styles.container(selectedJob, item)}
@@ -13,7 +13,7 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
           source={{
             uri: item.image
               ? item.image
-              : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
+              : "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png",
           }}
           resizeMode="contain"
           style={styles.logoImage}
@@ -25,11 +25,11 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
 
       <View style={styles.infoContainer}>
         <Text style={styles.jobName(selectedJob, item)} numberOfLines={1}>
-          {item.job_title}
+          {`${item.views.toLocaleString()} Views`}
         </Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default PopularJobCard;
+export default PopularArticleCard;

@@ -10,16 +10,13 @@ import { useRouter } from "expo-router";
 
 import styles from "./popularjobs.style";
 import { COLORS, SIZES } from "../../../constants";
-import PopularJobCard from "../../common/cards/popular/PopularJobCard.jsx";
+import PopularArticleCard from "../../common/cards/popular/PopularJobCard.jsx";
 import useFetch from "../../../hook/useFetch.js";
 
-const Popularjobs = () => {
+const PopularArticles = () => {
   const router = useRouter();
 
-  const { data, isLoading, error } = useFetch("search", {
-    query: "React Developer",
-    num_pages: 1,
-  });
+  const { data, isLoading, error } = useFetch();
 
   const [selectedJob, setSelectedJob] = useState();
 
@@ -28,10 +25,15 @@ const Popularjobs = () => {
     setSelectedJob(item.job_id);
   };
 
+  const date = new Date();
+  const formattedDate = `${date.getMonth() + 1}/${date.getDate() - 1}`;
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Popular Jobs</Text>
+        <Text style={styles.headerTitle}>
+          Popular Articles from {formattedDate}
+        </Text>
         <TouchableOpacity disabled={true}>
           <Text style={styles.headerBtn}>Show all</Text>
         </TouchableOpacity>
@@ -46,7 +48,7 @@ const Popularjobs = () => {
           <FlatList
             data={data}
             renderItem={({ item }) => (
-              <PopularJobCard
+              <PopularArticleCard
                 item={item}
                 selectedJob={selectedJob}
                 handleCardPress={handleCardPress}
@@ -62,4 +64,4 @@ const Popularjobs = () => {
   );
 };
 
-export default Popularjobs;
+export default PopularArticles;

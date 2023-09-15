@@ -10,18 +10,18 @@ function formatDate(date) {
 }
 
 const findImage = async (articleTitle) => {
-  const imageUrl = `https://en.wikipedia.org/w/api.php?action=query&formatversion=2&prop=pageimages%7Cpageterms&titles=${encodeURIComponent(
+  const imageUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=info|extracts|pageimages|images&inprop=url&exsentences=1&titles=${encodeURIComponent(
     articleTitle
-  )}&format=json`;
+  )}&format=json&origin=*&limit=30`;
 
   const imageResponse = await axios.get(imageUrl);
-  const page = imageResponse.data.query.pages[0];
+  const pageId = Object.keys(imageResponse.data.query.pages)[0];
 
-  if (page.thumbnail && page.thumbnail.source) {
-    return page.thumbnail.source;
-  } else {
-    return null;
-  }
+  const imageURL = imageResponse.data.query.pages[pageId].thumbnail
+    ? imageResponse.data.query.pages[pageId].thumbnail.source
+    : undefined;
+
+  return imageURL;
 };
 
 const date = new Date();
@@ -38,23 +38,27 @@ const useFetch = () => {
 
     try {
       const response = await axios.get(apiURL);
-      setData(
-        response.data.items[0].articles
-          .slice(2, 22)
-          .filter(
-            (article) =>
-              !article.article.startsWith("Special:") &&
-              !article.article.startsWith("Wikipedia:")
-          )
-        // .map(async (article) => {
-        //   const image = await findImage(article.article);
+      const formattedResponse = response.data.items[0].articles
+        .slice(2, 50)
+        .filter(
+          (article) =>
+            !article.article.startsWith("Special:") &&
+            !article.article.startsWith("Wikipedia:")
+        )
+        .slice(0, 20)
+        .map((article) => {
+          const formattedTitle = article.article.replace(/_/g, " ");
+          return { ...article, article: formattedTitle };
+        });
 
-        //   return {
-        //     ...article,
-        //     image,
-        //   };
-        // })
+      const articlesWithImages = await Promise.all(
+        formattedResponse.map(async (article) => {
+          const imageUrl = await findImage(article.article);
+          return { ...article, image: imageUrl };
+        })
       );
+
+      setData(articlesWithImages);
 
       setIsLoading(false);
     } catch (error) {
