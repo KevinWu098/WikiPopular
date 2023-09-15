@@ -11,8 +11,8 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
       <TouchableOpacity style={styles.logoContainer(selectedJob, item)}>
         <Image
           source={{
-            uri: item.employer_logo
-              ? item.employer_logo
+            uri: item.image
+              ? item.image
               : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
           }}
           resizeMode="contain"
@@ -20,7 +20,7 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress }) => {
         />
       </TouchableOpacity>
       <Text style={styles.companyName} numberOfLines={1}>
-        {item.employer_name}
+        {item.article}
       </Text>
 
       <View style={styles.infoContainer}>
