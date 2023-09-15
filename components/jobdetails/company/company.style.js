@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   locationImage: {
     width: 14,
     height: 14,
+    marginRight: 5,
     tintColor: COLORS.gray,
   },
   locationName: {

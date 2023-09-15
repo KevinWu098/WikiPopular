@@ -18,17 +18,15 @@ import {
   Specifics,
 } from "../../components";
 import { COLORS, icons, SIZES } from "../../constants";
-import useFetch from "../../hook/useFetch";
+import useFetch, { getSummary } from "../../hook/useFetch";
 
-const tabs = ["About", "Qualifications", "Responsibilities"];
+const tabs = ["Summary", "Related"];
 
 const JobDetails = () => {
-  const params = useSearchParams();
   const router = useRouter();
+  const params = useSearchParams();
 
-  const { data, isLoading, error, refetech } = useFetch("job-details", {
-    job_id: params.id,
-  });
+  const { data, isLoading, error, refetech } = useFetch(params.id);
 
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -41,20 +39,13 @@ const JobDetails = () => {
 
   const displayTabContent = () => {
     switch (activeTab) {
-      case "About":
-        return <JobAbout info={data[0].job_description ?? "No description"} />;
-      case "Qualifications":
+      case "Summary":
+        return <JobAbout info={data[0].summary ?? "No description"} />;
+      case "Related":
         return (
           <Specifics
             title="Qualifications"
             points={data[0].job_highlights?.Qualifications ?? ["N/A"]}
-          />
-        );
-      case "Responsibilities":
-        return (
-          <Specifics
-            title="Responsibilities"
-            points={data[0].job_highlights?.Responsibilities ?? ["N/A"]}
           />
         );
       default:
@@ -98,10 +89,9 @@ const JobDetails = () => {
           ) : (
             <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
               <Company
-                companyLogo={data[0].employer_logo}
-                jobTitle={data[0].job_title}
-                companyName={data[0].employer}
-                location={data[0].job_country}
+                articleImage={data[0].image}
+                articleTitle={data[0].article}
+                views={data[0].views}
               />
               <JobTabs
                 tabs={tabs}
@@ -115,10 +105,9 @@ const JobDetails = () => {
         </ScrollView>
 
         <JobFooter
-          url={
-            data[0]?.job_google_link ??
-            "https://careers.google.com/jobs/results"
-          }
+          url={`https://en.wikipedia.org/wiki/${encodeURIComponent(
+            data[0]?.article
+          )}`}
         />
       </>
     </SafeAreaView>

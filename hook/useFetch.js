@@ -12,23 +12,35 @@ function formatDate(date) {
 const findImage = async (articleTitle) => {
   const imageUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=info|extracts|pageimages|images&inprop=url&exsentences=1&titles=${encodeURIComponent(
     articleTitle
-  )}&format=json&origin=*&limit=30`;
+  )}&format=json&origin=*`;
 
   const imageResponse = await axios.get(imageUrl);
   const pageId = Object.keys(imageResponse.data.query.pages)[0];
 
-  const imageURL = imageResponse.data.query.pages[pageId].thumbnail
-    ? imageResponse.data.query.pages[pageId].thumbnail.source
-    : undefined;
+  const imageURL = imageResponse.data.query.pages[pageId].thumbnail?.source;
 
   return imageURL;
+};
+
+const findSummary = async (articleTitle) => {
+  const summaryURL = `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exlimit=1&titles=${encodeURIComponent(
+    articleTitle
+  )}&explaintext=1&exsectionformat=plain&format=json&origin=*`;
+
+  const summaryResponse = await axios.get(summaryURL);
+  const pageId = Object.keys(summaryResponse.data.query.pages)[0];
+
+  const summary =
+    summaryResponse.data.query.pages[pageId]?.extract.split("\n\n\n")[0];
+
+  return summary;
 };
 
 const date = new Date();
 const formattedDate = formatDate(date);
 const apiURL = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/${formattedDate}`;
 
-const useFetch = () => {
+const useFetch = (title) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -49,6 +61,9 @@ const useFetch = () => {
         .map((article) => {
           const formattedTitle = article.article.replace(/_/g, " ");
           return { ...article, article: formattedTitle };
+        })
+        .filter((article) => {
+          if (!title || article.article == title) return true;
         });
 
       const articlesWithImages = await Promise.all(
@@ -58,7 +73,14 @@ const useFetch = () => {
         })
       );
 
-      setData(articlesWithImages);
+      const articlesWithSummaries = await Promise.all(
+        articlesWithImages.map(async (article) => {
+          const summary = await findSummary(article.article);
+          return { ...article, summary: summary };
+        })
+      );
+
+      setData(articlesWithSummaries);
 
       setIsLoading(false);
     } catch (error) {
