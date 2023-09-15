@@ -43,10 +43,7 @@ const JobDetails = () => {
         return <JobAbout info={data[0].summary ?? "No description"} />;
       case "Related":
         return (
-          <Specifics
-            title="Qualifications"
-            points={data[0].job_highlights?.Qualifications ?? ["N/A"]}
-          />
+          <Specifics title="See Also" points={data[0].related ?? ["N/A"]} />
         );
       default:
         break;

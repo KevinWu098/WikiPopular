@@ -36,6 +36,41 @@ const findSummary = async (articleTitle) => {
   return summary;
 };
 
+const findRelated = async (articleTitle) => {
+  const relatedURL = `https://en.wikipedia.org/w/api.php?action=parse&prop=sections&page=${encodeURIComponent(
+    articleTitle
+  )}&format=json&origin=*`;
+
+  const relatedURLResponse = await axios.get(relatedURL);
+  const sections = relatedURLResponse.data.parse.sections;
+  let seeAlsoIndex = -1;
+
+  for (let i = 0; i < sections.length; i++) {
+    if (sections[i].line.toLowerCase() === "see also") {
+      seeAlsoIndex = i;
+      break;
+    }
+  }
+
+  if (seeAlsoIndex == -1) return undefined;
+
+  const relatedData = `https://en.wikipedia.org/w/api.php?action=parse&prop=links&page=${encodeURIComponent(
+    articleTitle
+  )}&section=${seeAlsoIndex}&format=json&origin=*&ns=0
+  `;
+
+  const relatedDataResponse = await axios.get(relatedData);
+
+  const relatedTitles = relatedDataResponse.data.parse.links
+    .slice(0, 3)
+    .map((link) => link["*"])
+    .map(
+      (title) => `https://en.wikipedia.org/wiki/${encodeURIComponent(title)}`
+    );
+
+  return relatedTitles;
+};
+
 const date = new Date();
 const formattedDate = formatDate(date);
 const apiURL = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/${formattedDate}`;
@@ -80,7 +115,14 @@ const useFetch = (title) => {
         })
       );
 
-      setData(articlesWithSummaries);
+      const articlesWithRelated = await Promise.all(
+        articlesWithSummaries.map(async (article) => {
+          const relatedTitles = await findRelated(article.article);
+          return { ...article, related: relatedTitles };
+        })
+      );
+
+      setData(articlesWithRelated);
 
       setIsLoading(false);
     } catch (error) {

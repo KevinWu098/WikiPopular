@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 
 import styles from "./specifics.style";
+import { Link } from "expo-router";
 
 const Specifics = ({ title, points }) => {
   return (
@@ -12,7 +13,14 @@ const Specifics = ({ title, points }) => {
         {points.map((item, index) => (
           <View style={styles.pointWrapper} key={item + index}>
             <Text style={styles.pointDot} />
-            <Text style={styles.pointText}>{item}</Text>
+            <Link
+              style={styles.pointText}
+              href={item}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item}
+            </Link>
           </View>
         ))}
       </View>
