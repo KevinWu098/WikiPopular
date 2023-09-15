@@ -93,36 +93,21 @@ const useFetch = (title) => {
             !article.article.startsWith("Wikipedia:")
         )
         .slice(0, 15)
-        .map((article) => {
+        .map(async (article) => {
           const formattedTitle = article.article.replace(/_/g, " ");
-          return { ...article, article: formattedTitle };
-        })
-        .filter((article) => {
-          if (!title || article.article == title) return true;
+          const imageUrl = await findImage(formattedTitle);
+          const summary = await findSummary(formattedTitle);
+          const relatedTitles = await findRelated(formattedTitle);
+          return {
+            ...article,
+            article: formattedTitle,
+            image: imageUrl,
+            summary: summary,
+            related: relatedTitles,
+          };
         });
 
-      const articlesWithImages = await Promise.all(
-        formattedResponse.map(async (article) => {
-          const imageUrl = await findImage(article.article);
-          return { ...article, image: imageUrl };
-        })
-      );
-
-      const articlesWithSummaries = await Promise.all(
-        articlesWithImages.map(async (article) => {
-          const summary = await findSummary(article.article);
-          return { ...article, summary: summary };
-        })
-      );
-
-      const articlesWithRelated = await Promise.all(
-        articlesWithSummaries.map(async (article) => {
-          const relatedTitles = await findRelated(article.article);
-          return { ...article, related: relatedTitles };
-        })
-      );
-
-      setData(articlesWithRelated);
+      setData(await Promise.all(formattedResponse));
 
       setIsLoading(false);
     } catch (error) {
