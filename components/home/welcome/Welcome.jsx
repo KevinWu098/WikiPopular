@@ -40,9 +40,14 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
             value={searchTerm}
             onChangeText={(text) => setSearchTerm(text)}
             placeholder="What are you looking for?"
+            disabled={true}
           />
         </View>
-        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
+        <TouchableOpacity
+          style={styles.searchBtn}
+          onPress={handleClick}
+          disabled={true}
+        >
           <Image
             source={icons.search}
             resizeMode="contain"
