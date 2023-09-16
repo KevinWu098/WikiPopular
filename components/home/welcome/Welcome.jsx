@@ -17,8 +17,8 @@ const jobTypes = [
   "Sports",
   "Movies",
   "Celebrities",
-  "World News",
   "US News",
+  "World News",
 ];
 
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
@@ -30,9 +30,7 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
     <View>
       <View style={styles.container}>
         <Text style={styles.userName}>Hey there!</Text>
-        <Text style={styles.welcomeMessage}>
-          See what's popular on Wikipedia
-        </Text>
+        <Text style={styles.welcomeMessage}>See what's on WikiPopular</Text>
       </View>
 
       <View style={styles.searchContainer}>

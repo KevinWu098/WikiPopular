@@ -83,6 +83,7 @@ const useFetch = (title) => {
   const fetchData = async () => {
     setIsLoading(true);
 
+    console.log(title);
     try {
       const response = await axios.get(apiURL);
       const formattedResponse = response.data.items[0].articles
@@ -93,14 +94,20 @@ const useFetch = (title) => {
             !article.article.startsWith("Wikipedia:")
         )
         .slice(0, 15)
-        .map(async (article) => {
+        .map((article) => {
           const formattedTitle = article.article.replace(/_/g, " ");
-          const imageUrl = await findImage(formattedTitle);
-          const summary = await findSummary(formattedTitle);
-          const relatedTitles = await findRelated(formattedTitle);
+          return { ...article, article: formattedTitle };
+        })
+        .filter((article) => {
+          if (!title || article.article == title) return true;
+        })
+        .map(async (article) => {
+          const title = article.article;
+          const imageUrl = await findImage(title);
+          const summary = await findSummary(title);
+          const relatedTitles = await findRelated(title);
           return {
             ...article,
-            article: formattedTitle,
             image: imageUrl,
             summary: summary,
             related: relatedTitles,
