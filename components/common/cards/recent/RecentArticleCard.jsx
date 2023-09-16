@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 
-import styles from "./nearbyjobcard.style";
+import styles from "./recentarticlecard.style";
 
-const NearbyJobCard = ({ article, handleNavigate }) => {
+const RecentArticleCard = ({ article, handleNavigate }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleNavigate}>
       <TouchableOpacity style={styles.logoContainer}>
@@ -29,4 +29,4 @@ const NearbyJobCard = ({ article, handleNavigate }) => {
   );
 };
 
-export default NearbyJobCard;
+export default RecentArticleCard;

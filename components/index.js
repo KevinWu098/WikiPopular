@@ -2,7 +2,7 @@ import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn";
 
 // home screen
 import Welcome from "./home/welcome/Welcome";
-import Nearbyjobs from "./home/nearby/Nearbyjobs";
+import RecentArticles from "./home/nearby/RecentArticles";
 import PopularArticles from "./home/popular/Popularjobs";
 
 // job details screen
@@ -13,17 +13,17 @@ import { default as ArticleFooter } from "./jobdetails/footer/Footer";
 import Specifics from "./jobdetails/specifics/Specifics";
 
 // common
-import NearbyJobCard from "./common/cards/nearby/NearbyJobCard";
+import RecentArticleCard from "./common/cards/nearby/RecentArticleCard";
 
 export {
   ScreenHeaderBtn,
   Welcome,
-  Nearbyjobs,
+  RecentArticles,
   PopularArticles,
   Article,
   ArticleTabs,
   ArticleSummary,
   ArticleFooter,
   Specifics,
-  NearbyJobCard,
+  RecentArticleCard,
 };

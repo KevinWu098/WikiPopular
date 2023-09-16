@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -6,16 +6,13 @@ import {
   ActivityIndicator,
   Linking,
 } from "react-native";
-import { useRouter } from "expo-router";
 
-import styles from "./nearbyjobs.style";
-import { COLORS, SIZES } from "../../../constants";
-import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard.jsx";
-import useFetch, { getRecent } from "../../../hook/useFetch.js";
+import styles from "./recentarticles.style";
+import { COLORS } from "../../../constants";
+import RecentArticleCard from "../../common/cards/nearby/RecentArticleCard.jsx";
+import { getRecent } from "../../../hook/useFetch.js";
 
 const Nearbyjobs = () => {
-  const router = useRouter();
-
   const { data, isLoading, error, refetch } = getRecent();
 
   const refresh = () => {
@@ -38,7 +35,7 @@ const Nearbyjobs = () => {
           <Text>Something went wrong!</Text>
         ) : (
           data.map((article) => (
-            <NearbyJobCard
+            <RecentArticleCard
               article={article}
               key={`recent-${article?.title}`}
               handleNavigate={() => Linking.openURL(article.link)}

@@ -4,7 +4,7 @@ import { Stack, useRouter } from "expo-router";
 
 import { COLORS, icons, images, SIZES } from "../constants";
 import {
-  Nearbyjobs,
+  RecentArticles,
   PopularArticles,
   ScreenHeaderBtn,
   Welcome,
@@ -52,7 +52,7 @@ const Home = () => {
           />
 
           <PopularArticles />
-          <Nearbyjobs />
+          <RecentArticles />
         </View>
       </ScrollView>
     </SafeAreaView>
