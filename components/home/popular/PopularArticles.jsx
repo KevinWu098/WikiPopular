@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 
-import styles from "./popularjobs.style";
+import styles from "./populararticles.style";
 import { COLORS, SIZES } from "../../../constants";
 import PopularArticleCard from "../../common/cards/popular/PopularJobCard.jsx";
 import useFetch from "../../../hook/useFetch.js";
