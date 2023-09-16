@@ -5,20 +5,18 @@ import { useRouter } from "expo-router";
 import styles from "./nearbyjobs.style";
 import { COLORS, SIZES } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard.jsx";
-import useFetch from "../../../hook/useFetch.js";
+import useFetch, { getRecent } from "../../../hook/useFetch.js";
 
 const Nearbyjobs = () => {
   const router = useRouter();
 
-  const { data, isLoading, error } = useFetch("search", {
-    query: "React Developer",
-    num_pages: 1,
-  });
+  const { data, isLoading, error } = getRecent();
 
+  console.log(data);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Nearby Jobs</Text>
+        <Text style={styles.headerTitle}>Recent Articles</Text>
         <TouchableOpacity disabled={true}>
           <Text style={styles.headerBtn}>Show all</Text>
         </TouchableOpacity>
@@ -30,11 +28,11 @@ const Nearbyjobs = () => {
         ) : error ? (
           <Text>Something went wrong!</Text>
         ) : (
-          data.map((job) => (
+          data.map((article) => (
             <NearbyJobCard
-              job={job}
-              key={`nearby-job-${job?.job_id}`}
-              handleNavigate={() => router.push(`/job-details/${job?.job_id}`)}
+              article={article}
+              key={`recent-${article?.title}`}
+              handleNavigate={() => router.push(`/recent/${article?.title}`)}
             />
           ))
         )}

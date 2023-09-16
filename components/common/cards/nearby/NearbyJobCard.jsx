@@ -2,15 +2,15 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import styles from "./nearbyjobcard.style";
 
-const NearbyJobCard = ({ job, handleNavigate }) => {
+const NearbyJobCard = ({ article, handleNavigate }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handleNavigate}>
       <TouchableOpacity style={styles.logoContainer}>
         <Image
           source={{
-            uri: job.employer_logo
-              ? job.employer_logo
-              : "https://t4.ftcdn.net/jpg/05/05/61/73/360_F_505617309_NN1CW7diNmGXJfMicpY9eXHKV4sqzO5H.jpg",
+            uri: article.image
+              ? article.image
+              : "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png",
           }}
           resizeMode="contain"
           style={styles.logoImage}
@@ -19,10 +19,10 @@ const NearbyJobCard = ({ job, handleNavigate }) => {
 
       <View style={styles.textContainer}>
         <Text style={styles.jobName} numberOfLines={1}>
-          {job.job_title}
+          {article.article}
         </Text>
         <Text style={styles.jobType} numberOfLines={1}>
-          {job.job_employment_type}
+          {/* {`${article.views.toLocaleString()} Views`} */}
         </Text>
       </View>
     </TouchableOpacity>

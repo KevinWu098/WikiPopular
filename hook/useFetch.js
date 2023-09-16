@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { parse } from "react-native-rss-parser";
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -197,3 +198,57 @@ const useFetch = (title) => {
 };
 
 export default useFetch;
+
+export const getRecent = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const rssURL =
+    "https://en.wikipedia.org/w/api.php?hidebots=1&hidecategorization=1&hideWikibase=1&urlversion=1&days=7&limit=10&action=feedrecentchanges&feedformat=rss&origin=*";
+
+  const fetchRecent = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await axios.get(rssURL);
+      const data = await parse(response.data);
+
+      const articles = data.items
+        .map((article) => {
+          return {
+            title: article.title,
+            links: article.links[0].url.split("&diff")[0],
+            published: article.published,
+          };
+        })
+        .map(async (article) => {
+          const title = article.title;
+          const imageUrl = await findImage(title);
+          return {
+            ...article,
+            image: imageUrl,
+          };
+        });
+
+      setData(await Promise.all(articles));
+      setIsLoading(false);
+    } catch (error) {
+      setError(error);
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRecent();
+  }, []);
+
+  const refetch = () => {
+    setIsLoading(true);
+    fetchRecent();
+  };
+
+  return { data, isLoading, error, refetch };
+};
