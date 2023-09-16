@@ -22,7 +22,7 @@ const NearbyJobCard = ({ article, handleNavigate }) => {
           {article.title}
         </Text>
         <Text style={styles.jobType} numberOfLines={1}>
-          {`${article.published}`}
+          {`Last Updated: ${article.published}`}
         </Text>
       </View>
     </TouchableOpacity>

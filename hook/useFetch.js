@@ -218,7 +218,7 @@ export const getRecent = () => {
         .map((article) => {
           return {
             title: article.title,
-            links: article.links[0].url.split("&diff")[0],
+            link: article.links[0].url.split("&diff")[0],
             published: article.published,
           };
         })
@@ -228,6 +228,8 @@ export const getRecent = () => {
             !article.title.startsWith("Wikipedia:") &&
             !article.title.startsWith("Talk:") &&
             !article.title.startsWith("File:") &&
+            !article.title.startsWith("Draft:") &&
+            !article.title.startsWith("Category:") &&
             !article.title.startsWith("User talk:")
         )
         .slice(0, 8)

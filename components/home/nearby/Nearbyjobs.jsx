@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  Linking,
+} from "react-native";
 import { useRouter } from "expo-router";
 
 import styles from "./nearbyjobs.style";
@@ -35,7 +41,7 @@ const Nearbyjobs = () => {
             <NearbyJobCard
               article={article}
               key={`recent-${article?.title}`}
-              handleNavigate={() => router.push(`/recent/${article?.title}`)}
+              handleNavigate={() => Linking.openURL(article.link)}
             />
           ))
         )}
