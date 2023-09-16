@@ -20,7 +20,7 @@ import {
 import { COLORS, icons, SIZES } from "../../constants";
 import useFetch, { getSummary } from "../../hook/useFetch";
 
-const tabs = ["Summary", "Related"];
+const tabs = ["Summary", "See Also"];
 
 const JobDetails = () => {
   const router = useRouter();
@@ -41,7 +41,7 @@ const JobDetails = () => {
     switch (activeTab) {
       case "Summary":
         return <JobAbout info={data[0].summary ?? "No description"} />;
-      case "Related":
+      case "See Also":
         return (
           <Specifics title="See Also" points={data[0].related ?? ["N/A"]} />
         );
