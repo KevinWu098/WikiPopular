@@ -205,7 +205,7 @@ export const getRecent = () => {
   const [error, setError] = useState(null);
 
   const rssURL =
-    "https://en.wikipedia.org/w/api.php?hidebots=1&hidecategorization=1&hideWikibase=1&urlversion=1&days=7&limit=10&action=feedrecentchanges&feedformat=rss&origin=*";
+    "https://en.wikipedia.org/w/api.php?hidebots=1&hidecategorization=1&hideWikibase=1&urlversion=1&days=7&limit=20&action=feedrecentchanges&feedformat=rss&origin=*";
 
   const fetchRecent = async () => {
     setIsLoading(true);
@@ -222,6 +222,15 @@ export const getRecent = () => {
             published: article.published,
           };
         })
+        .filter(
+          (article) =>
+            !article.title.startsWith("User:") &&
+            !article.title.startsWith("Wikipedia:") &&
+            !article.title.startsWith("Talk:") &&
+            !article.title.startsWith("File:") &&
+            !article.title.startsWith("User talk:")
+        )
+        .slice(0, 8)
         .map(async (article) => {
           const title = article.title;
           const imageUrl = await findImage(title);

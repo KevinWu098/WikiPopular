@@ -19,10 +19,10 @@ const NearbyJobCard = ({ article, handleNavigate }) => {
 
       <View style={styles.textContainer}>
         <Text style={styles.jobName} numberOfLines={1}>
-          {article.article}
+          {article.title}
         </Text>
         <Text style={styles.jobType} numberOfLines={1}>
-          {/* {`${article.views.toLocaleString()} Views`} */}
+          {`${article.published}`}
         </Text>
       </View>
     </TouchableOpacity>
