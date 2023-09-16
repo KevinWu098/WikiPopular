@@ -9,7 +9,7 @@ import {
 
 import styles from "./recentarticles.style";
 import { COLORS } from "../../../constants";
-import RecentArticleCard from "../../common/cards/nearby/RecentArticleCard.jsx";
+import RecentArticleCard from "../../common/cards/recent/RecentArticleCard.jsx";
 import { getRecent } from "../../../hook/useFetch.js";
 
 const Nearbyjobs = () => {

@@ -10,7 +10,7 @@ import { useRouter } from "expo-router";
 
 import styles from "./populararticles.style";
 import { COLORS, SIZES } from "../../../constants";
-import PopularArticleCard from "../../common/cards/popular/PopularJobCard.jsx";
+import PopularArticleCard from "../../common/cards/popular/PopularArticleCard.jsx";
 import useFetch from "../../../hook/useFetch.js";
 
 const PopularArticles = () => {
