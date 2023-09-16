@@ -150,8 +150,13 @@ const useFetch = (title) => {
         .filter(
           (article) =>
             !article.article.startsWith("Special:") &&
+            !article.article.startsWith("User:") &&
             !article.article.startsWith("Wikipedia:") &&
-            !article.article.startsWith("List_of")
+            !article.article.startsWith("Talk:") &&
+            !article.article.startsWith("File:") &&
+            !article.article.startsWith("Draft:") &&
+            !article.article.startsWith("Category:") &&
+            !article.article.startsWith("User talk:")
         )
         .slice(0, 15)
         .map((article) => {
@@ -224,6 +229,7 @@ export const getRecent = () => {
         })
         .filter(
           (article) =>
+            !article.title.startsWith("Special:") &&
             !article.title.startsWith("User:") &&
             !article.title.startsWith("Wikipedia:") &&
             !article.title.startsWith("Talk:") &&
