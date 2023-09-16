@@ -4,7 +4,7 @@ import { View, Text, Image } from "react-native";
 import styles from "./company.style";
 import { icons } from "../../../constants";
 
-const Company = ({ articleImage, articleTitle, views }) => {
+const Article = ({ articleImage, articleTitle, views }) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoBox}>
@@ -36,4 +36,4 @@ const Company = ({ articleImage, articleTitle, views }) => {
   );
 };
 
-export default Company;
+export default Article;

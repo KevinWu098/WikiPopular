@@ -10,19 +10,19 @@ import {
 import { Stack, useRouter, useSearchParams } from "expo-router";
 import { useCallback, useState } from "react";
 import {
-  Company,
-  JobAbout,
-  JobFooter,
-  JobTabs,
+  Article,
+  ArticleSummary,
+  ArticleFooter,
+  ArticleTabs,
   ScreenHeaderBtn,
   Specifics,
 } from "../../components";
 import { COLORS, icons, SIZES } from "../../constants";
-import useFetch, { getSummary } from "../../hook/useFetch";
+import useFetch from "../../hook/useFetch";
 
 const tabs = ["Summary", "See Also"];
 
-const JobDetails = () => {
+const ArticleDetails = () => {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -40,7 +40,7 @@ const JobDetails = () => {
   const displayTabContent = () => {
     switch (activeTab) {
       case "Summary":
-        return <JobAbout info={data[0].summary ?? "No description"} />;
+        return <ArticleSummary info={data[0].summary ?? "No description"} />;
       case "See Also":
         return (
           <Specifics title="See Also" points={data[0].related ?? ["N/A"]} />
@@ -85,12 +85,12 @@ const JobDetails = () => {
             <Text> No Data </Text>
           ) : (
             <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
-              <Company
+              <Article
                 articleImage={data[0].image}
                 articleTitle={data[0].article}
                 views={data[0].views}
               />
-              <JobTabs
+              <ArticleTabs
                 tabs={tabs}
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
@@ -101,7 +101,7 @@ const JobDetails = () => {
           )}
         </ScrollView>
 
-        <JobFooter
+        <ArticleFooter
           url={`https://en.wikipedia.org/wiki/${encodeURIComponent(
             data[0]?.article
           )}`}
@@ -111,4 +111,4 @@ const JobDetails = () => {
   );
 };
 
-export default JobDetails;
+export default ArticleDetails;

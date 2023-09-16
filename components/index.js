@@ -6,10 +6,10 @@ import Nearbyjobs from "./home/nearby/Nearbyjobs";
 import PopularArticles from "./home/popular/Popularjobs";
 
 // job details screen
-import Company from "./jobdetails/company/Company";
-import { default as JobTabs } from "./jobdetails/tabs/Tabs";
-import { default as JobAbout } from "./jobdetails/about/About";
-import { default as JobFooter } from "./jobdetails/footer/Footer";
+import Article from "./jobdetails/company/Company";
+import { default as ArticleTabs } from "./jobdetails/tabs/Tabs";
+import { default as ArticleSummary } from "./jobdetails/summary/Summary";
+import { default as ArticleFooter } from "./jobdetails/footer/Footer";
 import Specifics from "./jobdetails/specifics/Specifics";
 
 // common
@@ -20,10 +20,10 @@ export {
   Welcome,
   Nearbyjobs,
   PopularArticles,
-  Company,
-  JobTabs,
-  JobAbout,
-  JobFooter,
+  Article,
+  ArticleTabs,
+  ArticleSummary,
+  ArticleFooter,
   Specifics,
   NearbyJobCard,
 };
