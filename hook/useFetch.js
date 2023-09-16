@@ -121,7 +121,7 @@ const findRelated = async (articleTitle) => {
 
   const relatedDataResponse = await axios.get(relatedData);
 
-  const relatedTitles = relatedDataResponse.data.parse.links
+  const relatedTitles = relatedDataResponse.data.parse?.links
     .slice(0, 3)
     .map((link) => link["*"])
     .map(
@@ -133,7 +133,9 @@ const findRelated = async (articleTitle) => {
 
 const date = new Date();
 const formattedDate = formatDate(date);
-const apiURL = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/${formattedDate}`;
+const apiURL = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/${encodeURIComponent(
+  formattedDate
+)}`;
 
 const useFetch = (title) => {
   const [data, setData] = useState([]);
