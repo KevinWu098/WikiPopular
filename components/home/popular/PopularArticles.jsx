@@ -11,7 +11,7 @@ import { useRouter } from "expo-router";
 import styles from "./populararticles.style";
 import { COLORS, SIZES } from "../../../constants";
 import PopularArticleCard from "../../common/cards/popular/PopularArticleCard.jsx";
-import useFetch from "../../../hook/useFetch.js";
+import useFetch from "../../../hook/getData.js";
 
 const PopularArticles = () => {
   const router = useRouter();

@@ -10,7 +10,7 @@ import {
 import styles from "./recentarticles.style";
 import { COLORS } from "../../../constants";
 import RecentArticleCard from "../../common/cards/recent/RecentArticleCard.jsx";
-import { getRecent } from "../../../hook/useFetch.js";
+import { getRecent } from "../../../hook/getData.js";
 
 const Nearbyjobs = () => {
   const { data, isLoading, error, refetch } = getRecent();
