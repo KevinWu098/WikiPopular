@@ -133,9 +133,7 @@ const findRelated = async (articleTitle) => {
 
 const date = new Date();
 const formattedDate = formatDate(date);
-const apiURL = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/${encodeURIComponent(
-  formattedDate
-)}`;
+const apiURL = `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/${formattedDate}`;
 
 const useFetch = (title) => {
   const [data, setData] = useState([]);
