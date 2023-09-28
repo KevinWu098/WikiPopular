@@ -19,6 +19,7 @@ import {
 } from "../../components";
 import { COLORS, icons, SIZES } from "../../constants";
 import useFetch from "../../hook/getData";
+import { getBard } from "../../hook/getBard";
 
 const tabs = ["Summary", "See Also"];
 
@@ -36,6 +37,8 @@ const ArticleDetails = () => {
     refetech();
     setRefreshing(false);
   }, []);
+
+  console.log(getBard(data[0].summary));
 
   const displayTabContent = () => {
     switch (activeTab) {
