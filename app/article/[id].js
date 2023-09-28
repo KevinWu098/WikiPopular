@@ -45,7 +45,16 @@ const ArticleDetails = () => {
   const displayTabContent = () => {
     switch (activeTab) {
       case "Summary":
-        return <ArticleSummary info={bardSummary ?? "No description"} />;
+        return (
+          <ArticleSummary
+            info={
+              bardSummary === "ERROR"
+                ? data[0].summary ?? "No description"
+                : bardSummary
+            }
+            usedBard={bardSummary === "ERROR" ? false : true}
+          />
+        );
       case "See Also":
         return (
           <Specifics title="See Also" points={data[0].related ?? ["N/A"]} />
