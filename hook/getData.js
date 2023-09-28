@@ -35,66 +35,7 @@ const findSummary = async (articleTitle) => {
     summaryResponse.data.query.pages[pageId]?.extract.split("\n\n\n")[0];
 
   return summary;
-
-  // const formattedSummary = await aiFormattedSummary(summary);
-  // return formattedSummary;
 };
-
-// Too inconsistent ** and slow **
-// const aiFormattedSummary = async (summary) => {
-//   const PALM_API_KEY = "AIzaSyCm4XJ52YJr3b0YSYAPAcMHLTbfyiWFP2Q";
-//   const apiUrl = `https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage`;
-
-//   const requestData = {
-//     prompt: {
-//       context: "Correct the formatting of this Wikipedia lead section: ",
-//       examples: [],
-//       messages: [{ content: summary }],
-//     },
-//     temperature: 0.65,
-//     top_k: 40,
-//     top_p: 0.95,
-//     candidate_count: 1,
-//   };
-
-//   const headers = {
-//     "Content-Type": "application/json",
-//   };
-
-//   try {
-//     const response = await axios.post(
-//       `${apiUrl}?key=${PALM_API_KEY}`,
-//       requestData,
-//       {
-//         headers,
-//       }
-//     );
-
-//     if (response.status === 200) {
-//       if (
-//         response.data &&
-//         response.data.candidates &&
-//         response.data.candidates.length > 0
-//       ) {
-//         const botResponse = response.data.candidates[0].content;
-
-//         return botResponse;
-//       } else {
-//         console.error("Response structure is not as expected.");
-//       }
-//     } else {
-//       console.error(
-//         "Google Cloud API request failed with status:",
-//         response.status
-//       );
-//     }
-//   } catch (error) {
-//     console.error(
-//       "An error occurred while making the Google Cloud API request:",
-//       error
-//     );
-//   }
-// };
 
 const findRelated = async (articleTitle) => {
   const relatedURL = `https://en.wikipedia.org/w/api.php?action=parse&prop=sections&page=${encodeURIComponent(
