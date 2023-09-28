@@ -5,8 +5,8 @@ WikiPopular is an app for users to check out the latest and greatest from Wikipe
 
 ## Built With
 - React Native (and Expo Go)
-- Wikipedia APIs
-- <sub>_PaLM API (in testing)_</sub>
+- Wikimedia APIs
+- Bard (PaLM API)
   
 ## Introduction
 Love traversing endless rabbit holes on Wikipedia? A bit too busy recently? Wikipopular helps to scratch your irresistable Wikipedia itch with a bite-sized, enjoyable UI.
