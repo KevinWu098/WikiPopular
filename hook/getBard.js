@@ -7,7 +7,7 @@ export const getBard = (articleSummary) => {
   const [isBardLoading, setIsBardLoading] = useState(false);
   const [bardError, setBardError] = useState(null);
 
-  const summary = encodeURIComponent(articleSummary.toString());
+  const summary = encodeURIComponent(articleSummary?.toString());
 
   const fetchData = async () => {
     setIsBardLoading(true);
