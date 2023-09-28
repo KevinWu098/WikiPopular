@@ -19,7 +19,6 @@ import {
 } from "../../components";
 import { COLORS, icons, SIZES } from "../../constants";
 import useFetch from "../../hook/getData";
-import { getBard } from "../../hook/getBard";
 
 const tabs = ["Summary", "See Also"];
 
